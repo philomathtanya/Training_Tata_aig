@@ -23,26 +23,14 @@ const Quote = (props) => {
     }
   return (
     
-      <div style={{ width:'100%'}}>
-        <div
-          style={{
-            flex: '1 1 calc(30% - 1rem)',
-            margin: '0.5rem', 
-            backgroundColor: '#fff',
-            border: '1px solid #ddd', 
-            borderRadius: '5px',
-            boxShadow: '0 4px 8px rgba(0,0,0,0.1)', 
-            display: 'flex',
-            flexDirection: 'column', 
-            maxWidth: 'calc(30%)', 
-          }}
-        >
-          <div style={{ padding: '1rem', backgroundColor: '#f5f5f5', fontWeight: 'bold' }}>Product</div>
+      
+        <div style={{width:'400px' ,border:'1px solid grey', borderRadius:'16px'}}>
+          {/* <div style={{ padding: '1rem', backgroundColor: '#f5f5f5', fontWeight: 'bold'}}>Product</div> */}
           <div style={{ padding: '1rem', flex: '1' }}>
             <img
               src={props.quote.img}
               alt="Product"
-              style={{ width: '100%', height: 'auto', borderBottom: '1px solid #ddd' }}
+              style={{ width: '100%', height: '200px', borderBottom: '1px solid #ddd', objectFit:'cover' }}
             />
             <p>{props.quote.name}</p>
             <footer style={{ marginTop: '1rem' }}>
@@ -65,7 +53,7 @@ const Quote = (props) => {
             <Link to={'/addtocart'}><button>  <FontAwesomeIcon icon={faPlus} /></button></Link>
           </div>
         </div>
-      </div>
+     
 
   )
 }
