@@ -1,27 +1,38 @@
 import React, { useEffect } from "react";
-import Quote from "../components/quote";
 import { useState } from "react";
 import axios from "axios";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faTrash } from "@fortawesome/free-solid-svg-icons";
+import Product from "../components/Product";
 
 export const AllProductsPage = () => {
-  const [Quotes, setQuotes] = useState([]);
+  const [products, setProducts] = useState([]);
+  const [cartProducts, setCartProducts] = useState([]);
+  async function fetchAllCartProductsPage() {
+    const apidata = await axios.get("http://localhost:8000/go-to-cart");
 
+    setCartProducts(apidata.data);
+  }
   async function fetchAllProductsPage() {
     const apidata = await axios.get("http://localhost:8000/");
 
-    setQuotes(apidata.data);
+    setProducts(apidata.data);
   }
-  const deleteHandler = (deletedquote) => {
-    const updatedQuotes = Quotes.filter(
-      (item) => item._id !== deletedquote._id
+  const deleteHandler = (deletedProduct) => {
+    const updatedProducts = products.filter(
+      (item) => item._id !== deletedProduct._id
     );
-    setQuotes(updatedQuotes);
+    setProducts(updatedProducts);
   };
-
+  const deleteCartHandler = (deletedProduct) => {
+    const updatedCartProducts = cartProducts.filter(
+      (item) => item._id !== deletedProduct._id
+    );
+    setCartProducts(updatedCartProducts);
+  };
   useEffect(() => {
     fetchAllProductsPage();
+  }, []);
+  useEffect(() => {
+    fetchAllCartProductsPage();
   }, []);
 
   return (
@@ -36,12 +47,10 @@ export const AllProductsPage = () => {
           flexWrap: "wrap",
         }}
       >
-        {Quotes.map((quote) => {
-          return <Quote quote={quote} dlted={deleteHandler} />;
+        {products.map((productInfo) => {
+          return <Product product={productInfo} dlted={deleteHandler} dltCart={deleteCartHandler} />;
         })}
       </div>
     </div>
   );
 };
-
-

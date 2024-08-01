@@ -1,13 +1,16 @@
+import { faPlus } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
+
 export const ShowProductPage = () => {
-  const [particularQuote, setquote] = useState([]);
+  const [singleProduct, setSingleProduct] = useState([]);
   const params = useParams();
   const id = params.id;
   async function gettingIdData() {
-    const data = await axios.get(`http://localhost:8000/quote/${id}`);
-    setquote(data.data);
+    const data = await axios.get(`http://localhost:8000/product/${id}`);
+    setSingleProduct(data.data);
   }
   useEffect(() => {
     gettingIdData();
@@ -19,10 +22,10 @@ export const ShowProductPage = () => {
         <div className="card-header">Product</div>
         <div className="card-body ">
           <blockquote className="blockquote mb-0">
-            <p>{particularQuote.name}</p>
+            <p>{singleProduct.name}</p>
             <div style={{ padding: "1rem", flex: "1" }}>
               <img
-                src={particularQuote.img}
+                src={singleProduct.img}
                 alt="Product"
                 style={{
                   width: "100%",
@@ -30,20 +33,26 @@ export const ShowProductPage = () => {
                   borderBottom: "1px solid #ddd",
                 }}
               />
-              <p>{particularQuote.name}</p>
+              <p>{singleProduct.name}</p>
               <footer style={{ marginTop: "1rem" }}>
-                <cite title="Source Title">{particularQuote.price}</cite>
-                <p>{particularQuote.desc}</p>
+                <cite title="Source Title">{singleProduct.price}</cite>
+                <p>{singleProduct.desc}</p>
               </footer>
             </div>
-            <Link to={`/edit-product/${id}`}>
-              <button className="btn btn-primary">Edit</button>
-            </Link>
+            <div style={{ display: "flex", justifyContent: "space-between" }}>
+              <Link to={`/edit-product/${id}`}>
+                <button className="btn btn-primary">Edit</button>
+              </Link>
+              <Link to={`/addtocart/${id}`}>
+                <button>
+                  {" "}
+                  <FontAwesomeIcon icon={faPlus} />
+                </button>
+              </Link>
+            </div>
           </blockquote>
         </div>
       </div>
     </div>
   );
 };
-
-

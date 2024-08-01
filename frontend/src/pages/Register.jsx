@@ -1,42 +1,49 @@
-// src/components/LoginPage.js
 import React, { useState } from "react";
-import "../styles/loginPage.css";
+import "../styles/registerPage.css";
 import logo from "../assets/logo.jpg";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
-export const LoginPage = () => {
+export const Register = () => {
+  const navigate = useNavigate();
   const [email, setEmail] = useState("");
+  const [name, setName] = useState("");
   const [password, setPassword] = useState("");
-const navigate=useNavigate();
+
   const handleSubmit = async (event) => {
     event.preventDefault();
-    const apidata = await axios.post("http://localhost:8000/login-user", {
+
+    const apidata = await axios.post("http://localhost:8000/register-user", {
       email,
-      password,
+      name,
+      password
     });
-    console.log(apidata.data);
     try {
-      if (apidata.data.status === "ok") {
-        console.log("User found:", apidata.data.userList);
-      navigate('/')
-      } else {
-        navigate('/register')
-        console.log("User not found");
-        
-      }
-    } catch (error) {
-      console.error("Error checking user:", error);
+      if (apidata.data.status === "ok")
+        console.log("user registered successfully");
+      // navigate('/');
+    } catch {
+      console.log("User not registered");
     }
   };
 
   return (
     <div className="login">
-      <div className="image-side1"></div>
+      <div className="image-side"></div>
       <div className="form-side">
         <img src={logo} alt="Logo" className="logo-img" />
-        <h1 className="login-title">Login</h1>
+        <h1 className="login-title">Register</h1>
         <form className="login-form" onSubmit={handleSubmit}>
+          <div className="form-group">
+            <label htmlFor="name">Name</label>
+            <input
+              type="name"
+              id="name"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              required
+            />
+          </div>
           <div className="form-group">
             <label htmlFor="email">Email</label>
             <input
@@ -58,7 +65,7 @@ const navigate=useNavigate();
             />
           </div>
           <button type="submit" className="login-button">
-            Login
+            Register
           </button>
         </form>
       </div>

@@ -1,5 +1,5 @@
 const mongoose=require('mongoose');
-const quotesSchema=mongoose.Schema({
+const productSchema=mongoose.Schema({
     name:{
         type:String
     },
@@ -13,5 +13,5 @@ const quotesSchema=mongoose.Schema({
         type:String
     }
 })
-const quoteModel=mongoose.model('Quotes',quotesSchema);
-module.exports=quoteModel;
+const productmodel=mongoose.model('Product',productSchema);
+module.exports=productmodel;

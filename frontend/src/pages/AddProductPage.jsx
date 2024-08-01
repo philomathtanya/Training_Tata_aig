@@ -7,7 +7,7 @@ export  const AddProductPage = () => {
   const navigate = useNavigate();
 
   async function onSubmit(data) {
-    const apidata = await axios.post("http://localhost:8000/addQuotes", data);
+    const apidata = await axios.post("http://localhost:8000/add-product", data);
     navigate("/");
   }
 
